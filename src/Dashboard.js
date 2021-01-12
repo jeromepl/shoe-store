@@ -21,6 +21,7 @@ const Grid = styled.table`
     & td.row-header {
         font-weight: bold;
         text-align: right;
+        padding-right: 12px;
     }
 
 `;
