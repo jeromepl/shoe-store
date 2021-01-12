@@ -7,8 +7,9 @@
 - UI inspiration 2 https://dribbble.com/shots/11034226-Data-Table-Filter
 - Font https://fonts.google.com/specimen/Catamaran?preview.text=ALDO&preview.text_type=custom&thickness=9
 - [create-react-app](https://github.com/facebook/create-react-app)
-- https://codepen.io/maoberlehner/pen/jwVWQz
+- https://www.npmjs.com/package/react-circular-progressbar
 - https://mobx-state-tree.js.org/intro/getting-started
+- https://usehooks.com/useHover/
 
 ## Synopsis
 
