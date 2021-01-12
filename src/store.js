@@ -6,6 +6,7 @@ const DATA_URL = 'ws://localhost:8080/';
 const STORE_LIST = ['ALDO Centre Eaton', 'ALDO Destiny USA Mall', 'ALDO Pheasant Lane Mall', 'ALDO Holyoke Mall', 'ALDO Maine Mall', 'ALDO Crossgates Mall', 'ALDO Burlington Mall', 'ALDO Solomon Pond Mall', 'ALDO Auburn Mall', 'ALDO Waterloo Premium Outlets'];
 const SHOE_LIST = ['ADERI', 'MIRIRA', 'CAELAN', 'BUTAUD', 'SCHOOLER', 'SODANO', 'MCTYRE', 'CADAUDIA', 'RASIEN', 'WUMA', 'GRELIDIEN', 'CADEVEN', 'SEVIDE', 'ELOILLAN', 'BEODA', 'VENDOGNUS', 'ABOEN', 'ALALIWEN', 'GREG', 'BOZZA'];
 const RECENT_SALES_CACHE_SIZE = 10;
+const LOW_STOCK_THRESHOLD = 5;
 
 const Inventory = types
     .model({
@@ -17,7 +18,7 @@ const Inventory = types
             return values(self.inventory).reduce((acc, count) => acc + (count > 0 ? count : 0));
         },
         get lowCountPercentage() {
-            return values(self.inventory).filter(count => count < 3).length / SHOE_LIST.length;
+            return values(self.inventory).filter(count => count < LOW_STOCK_THRESHOLD).length / SHOE_LIST.length;
         }
     }))
     .actions(self => ({
