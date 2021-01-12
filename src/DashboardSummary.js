@@ -5,7 +5,7 @@ import dataStore from './store';
 
 
 const DashboardSummary = observer(() => {
-    return <div>
+    return <div className="DashboardSummary">
         <div>{dataStore.totalInventory}</div>
         <div>{dataStore.lowCountPercentage}</div>
     </div>;

@@ -6,7 +6,7 @@ import dataStore from './store';
 
 
 const Dashboard = observer(() => {
-    return <div>
+    return <div className="Dashboard">
         {values(dataStore.stores).map((store, i) => (
             <div key={i} >
                 { values(store['inventory']).map((shoe, j) => (
