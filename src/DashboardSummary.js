@@ -41,7 +41,7 @@ const DashboardSummary = observer(() => {
                     })}
                 />
             </div>
-            <ExplanationText>of products are in sufficient stock</ExplanationText>
+            <ExplanationText>of products are in <span title='> 5' style={{ borderBottom: 'dashed 1px grey', cursor: 'default' }}>sufficient</span> stock</ExplanationText>
         </SectionContainer>
         <SectionContainer>
             <StockText style={{ height: '200px' }}>{dataStore.totalInventory}</StockText>
