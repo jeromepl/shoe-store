@@ -26,8 +26,8 @@ const LogoContainer = styled.div`
     width: 0px;
     height: 0px;
     border-radius: 50%;
-    z-index: -10;
     overflow: hidden;
+    z-index: -10;
 
     transition: width ease 1s, height ease 1s;
 
