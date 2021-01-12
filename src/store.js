@@ -5,6 +5,7 @@ import { values } from 'mobx';
 const DATA_URL = 'ws://localhost:8080/';
 const STORE_LIST = ['ALDO Centre Eaton', 'ALDO Destiny USA Mall', 'ALDO Pheasant Lane Mall', 'ALDO Holyoke Mall', 'ALDO Maine Mall', 'ALDO Crossgates Mall', 'ALDO Burlington Mall', 'ALDO Solomon Pond Mall', 'ALDO Auburn Mall', 'ALDO Waterloo Premium Outlets'];
 const SHOE_LIST = ['ADERI', 'MIRIRA', 'CAELAN', 'BUTAUD', 'SCHOOLER', 'SODANO', 'MCTYRE', 'CADAUDIA', 'RASIEN', 'WUMA', 'GRELIDIEN', 'CADEVEN', 'SEVIDE', 'ELOILLAN', 'BEODA', 'VENDOGNUS', 'ABOEN', 'ALALIWEN', 'GREG', 'BOZZA'];
+const RECENT_SALES_CACHE_SIZE = 10;
 
 const Inventory = types
     .model({
@@ -25,9 +26,16 @@ const Inventory = types
         }
     }));
 
+const Sale = types.model({
+    store: types.string,
+    model: types.string,
+    inventory: types.number
+});
+
 const Stores = types
     .model({
-        stores: types.map(Inventory)
+        stores: types.map(Inventory),
+        recentSales: types.array(Sale)
     })
     .views(self => ({
         get totalInventory() {
@@ -40,6 +48,14 @@ const Stores = types
             let totalCount = 0;
             values(self.stores).forEach((store) => totalCount += store.lowCountPercentage);
             return totalCount / STORE_LIST.length;
+        }
+    }))
+    .actions(self => ({
+        addSale(store, model, inventory) {
+            self.recentSales.push(Sale.create({ store, model, inventory }));
+            if (self.recentSales.length > RECENT_SALES_CACHE_SIZE) {
+                self.recentSales.shift();
+            }
         }
     }));
 
@@ -58,6 +74,7 @@ const ws = new WebSocket(DATA_URL);
 ws.onmessage = function (event) {
     const { store, model, inventory } = JSON.parse(event.data);
     dataStore.stores.get(store).setInventoryCount(model, inventory);
+    dataStore.addSale(store, model, inventory);
 };
 
 
