@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree';
 import { values } from 'mobx';
 
 
+const DATA_URL = 'ws://localhost:8080/';
 const STORE_LIST = ['ALDO Centre Eaton', 'ALDO Destiny USA Mall', 'ALDO Pheasant Lane Mall', 'ALDO Holyoke Mall', 'ALDO Maine Mall', 'ALDO Crossgates Mall', 'ALDO Burlington Mall', 'ALDO Solomon Pond Mall', 'ALDO Auburn Mall', 'ALDO Waterloo Premium Outlets'];
 const SHOE_LIST = ['ADERI', 'MIRIRA', 'CAELAN', 'BUTAUD', 'SCHOOLER', 'SODANO', 'MCTYRE', 'CADAUDIA', 'RASIEN', 'WUMA', 'GRELIDIEN', 'CADEVEN', 'SEVIDE', 'ELOILLAN', 'BEODA', 'VENDOGNUS', 'ABOEN', 'ALALIWEN', 'GREG', 'BOZZA'];
 
@@ -52,7 +53,7 @@ STORE_LIST.forEach(store => {
 const dataStore = Stores.create({ stores: defaultValue });
 
 // Connect to data stream
-const ws = new WebSocket('ws://localhost:8080/');
+const ws = new WebSocket(DATA_URL);
 
 ws.onmessage = function (event) {
     const { store, model, inventory } = JSON.parse(event.data);
