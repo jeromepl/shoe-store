@@ -14,7 +14,9 @@ const App = observer(() => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          {dataStore.totalInventory}
+          <br />
+          {dataStore.lowCountPercentage}
         </p>
         {values(dataStore.stores).map((store, i) => (
           <div key={i} >

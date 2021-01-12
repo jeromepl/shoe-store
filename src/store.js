@@ -1,4 +1,5 @@
-import { types } from "mobx-state-tree";
+import { types } from 'mobx-state-tree';
+import { values } from 'mobx';
 
 
 const STORE_LIST = ['ALDO Centre Eaton', 'ALDO Destiny USA Mall', 'ALDO Pheasant Lane Mall', 'ALDO Holyoke Mall', 'ALDO Maine Mall', 'ALDO Crossgates Mall', 'ALDO Burlington Mall', 'ALDO Solomon Pond Mall', 'ALDO Auburn Mall', 'ALDO Waterloo Premium Outlets'];
@@ -8,21 +9,44 @@ const Inventory = types
     .model({
         inventory: types.map(types.number)
     })
+    .views(self => ({
+        get totalInventory() {
+            // Sum all shoe counts
+            return values(self.inventory).reduce((acc, count) => acc + (count > 0 ? count : 0));
+        },
+        get lowCountPercentage() {
+            return values(self.inventory).filter(count => count < 3).length / SHOE_LIST.length;
+        }
+    }))
     .actions(self => ({
         setInventoryCount(shoe, count) {
             self.inventory.set(shoe, count);
         }
     }));
 
-const Stores = types.model({
-    stores: types.map(Inventory)
-});
+const Stores = types
+    .model({
+        stores: types.map(Inventory)
+    })
+    .views(self => ({
+        get totalInventory() {
+            // Sum the total inventories from all stores
+            let totalCount = 0;
+            values(self.stores).forEach((store) => totalCount += store.totalInventory);
+            return totalCount;
+        },
+        get lowCountPercentage() {
+            let totalCount = 0;
+            values(self.stores).forEach((store) => totalCount += store.lowCountPercentage);
+            return totalCount / STORE_LIST.length;
+        }
+    }));
 
 const defaultValue = {};
 STORE_LIST.forEach(store => {
-    const shoes_map = {};
-    SHOE_LIST.forEach(shoe => shoes_map[shoe] = -1);
-    defaultValue[store] = { inventory: shoes_map };
+    const shoesMap = {};
+    SHOE_LIST.forEach(shoe => shoesMap[shoe] = -1);
+    defaultValue[store] = { inventory: shoesMap };
 });
 
 const dataStore = Stores.create({ stores: defaultValue });
