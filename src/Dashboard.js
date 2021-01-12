@@ -42,6 +42,7 @@ const Cell = observer((props) => {
 
 const Dashboard = () => {
     return <div className="Dashboard">
+        <h2>Inventory</h2>
         <Grid>
             <tbody>
                 <tr>
