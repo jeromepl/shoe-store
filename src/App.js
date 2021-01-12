@@ -1,25 +1,32 @@
+import React from 'react';
+import { observer } from 'mobx-react-lite';
+import { values } from 'mobx';
+
+import dataStore from './store';
+
 import logo from './offline_shopping.svg';
 import './App.css';
 
-function App() {
+
+const App = observer(() => {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {values(dataStore.stores).map((store, i) => (
+          <div key={i} >
+            { values(store['inventory']).map((shoe, j) => (
+              <span key={j}>{shoe > 0 ? shoe : '-'}</span>
+            ))}
+          </div>
+        ))}
       </header>
     </div>
   );
-}
+});
 
 export default App;
+
