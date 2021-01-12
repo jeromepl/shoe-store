@@ -1,5 +1,15 @@
 # Shoe Store
 
+## My Take
+
+- Image from https://2.flexiple.com/scale/all-illustrations
+- UI inspiration https://dribbble.com/shots/5245270-Figma-Matrix-Chart-UI-for-correlation
+- UI inspiration 2 https://dribbble.com/shots/11034226-Data-Table-Filter
+- Font https://fonts.google.com/specimen/Catamaran?preview.text=ALDO&preview.text_type=custom&thickness=9
+- [create-react-app](https://github.com/facebook/create-react-app)
+- https://codepen.io/maoberlehner/pen/jwVWQz
+- https://mobx-state-tree.js.org/intro/getting-started
+
 ## Synopsis
 
 Aldo Shoes is having a huge flash sale online. You provide support to the inventory department. They want to react real-time to various inventory problems as they arise.
