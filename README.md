@@ -1,15 +1,37 @@
 # Shoe Store
 
-## My Take
+## My Take on This Challenge
 
-- Image from https://2.flexiple.com/scale/all-illustrations
-- UI inspiration https://dribbble.com/shots/5245270-Figma-Matrix-Chart-UI-for-correlation
-- UI inspiration 2 https://dribbble.com/shots/11034226-Data-Table-Filter
-- Font https://fonts.google.com/specimen/Catamaran?preview.text=ALDO&preview.text_type=custom&thickness=9
+With a focus on good UX, this web dashboard should provide all necessary information to monitor shoes' inventories.
+The colors make it quick to identify anywhere a product is in low stock.
+
+### Tech stack and sources:
 - [create-react-app](https://github.com/facebook/create-react-app)
-- https://www.npmjs.com/package/react-circular-progressbar
-- https://mobx-state-tree.js.org/intro/getting-started
-- https://usehooks.com/useHover/
+- [MobX state tree](https://mobx-state-tree.js.org) for state management
+- [styled-components](https://styled-components.com/)
+- [useHover react hook](https://usehooks.com/useHover/)
+- [React circular progressbar](https://www.npmjs.com/package/react-circular-progressbar)
+- Fonts: Catamaran and Roboto from Google Fonts
+- Shopping image from https://2.flexiple.com/scale/all-illustrations
+
+### What could be improved in the future:
+- Responsive UI. This would be the next step. Make it work on a variety of screen sizes and on mobile.
+- Animate the sales log so that it is easier to see products moving down the list.
+- Collaborate with the sales team to figure out the right metrics to add!
+
+### Installing
+On top of the original installation instructions (see below), you will need to run `npm install` from the root directory.
+
+Then run `npm start` to run the application in dev mode. The page should automatically open in your browser.
+
+### Screenshots
+
+Since the UI is not as responsive as I would like it to be right now, here are some screenshots from a reasonable screen resolution:
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+
+Below is the original readme file:
 
 ## Synopsis
 
