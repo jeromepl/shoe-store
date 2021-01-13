@@ -1,6 +1,6 @@
 # Shoe Store
 
-## My Take on This Challenge
+## My take on this challenge
 
 With a focus on good UX, this web dashboard should provide all necessary information to monitor shoes' inventories.
 The colors make it quick to identify anywhere a product is in low stock.
@@ -15,7 +15,7 @@ The colors make it quick to identify anywhere a product is in low stock.
 - Shopping image from https://2.flexiple.com/scale/all-illustrations
 
 ### What could be improved in the future:
-- Responsive UI. This would be the next step. Make it work on a variety of screen sizes and on mobile.
+- **Responsive UI**. This would be the next step. Make it work on a variety of screen sizes and on mobile.
 - Animate the sales log so that it is easier to see products moving down the list.
 - Collaborate with the sales team to figure out the right metrics to add!
 
@@ -29,6 +29,7 @@ Then run `npm start` to run the application in dev mode. The page should automat
 Since the UI is not as responsive as I would like it to be right now, here are some screenshots from a reasonable screen resolution:
 
 ![Screenshot 1](screenshots/screenshot1.png)
+===========================
 ![Screenshot 2](screenshots/screenshot2.png)
 
 Below is the original readme file:
