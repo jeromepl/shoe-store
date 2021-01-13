@@ -58,7 +58,7 @@ const DashboardSummary = observer(() => {
                     })}
                 />
             </div>
-            <ExplanationText>This dashboard is 100% awesome</ExplanationText>
+            <ExplanationText>This dashboard is 100% awesome 👍</ExplanationText>
         </SectionContainer>
     </div>;
 });
