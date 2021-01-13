@@ -17,6 +17,7 @@ The colors make it quick to identify anywhere a product is in low stock.
 ### What could be improved in the future:
 - **Responsive UI**. This would be the next step. Make it work on a variety of screen sizes and on mobile.
 - Animate the sales log so that it is easier to see products moving down the list.
+- I would recommend converting to TypeScript to make it easier to maintain this product, especially if it grows larger.
 - Collaborate with the sales team to figure out the right metrics to add!
 
 ### Installing
