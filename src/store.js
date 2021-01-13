@@ -18,7 +18,7 @@ const Inventory = types
             return values(self.inventory).reduce((acc, count) => acc + (count > 0 ? count : 0));
         },
         get lowCountPercentage() {
-            return values(self.inventory).filter(count => count >= 0 && count < LOW_STOCK_THRESHOLD).length / SHOE_LIST.length;
+            return values(self.inventory).filter(count => count >= 0 && count <= LOW_STOCK_THRESHOLD).length / SHOE_LIST.length;
         }
     }))
     .actions(self => ({
