@@ -28,7 +28,7 @@ const StockText = styled.div`
 
 
 const DashboardSummary = observer(() => {
-    const inStockPercentage = (1 - dataStore.lowCountPercentage) * 100;
+    const inStockPercentage = (1 - dataStore.lowCountPercentage) * 100; // In %
     return <div className="DashboardSummary">
         <SectionContainer>
             <div style={{ width: '200px' }}>

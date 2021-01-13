@@ -32,9 +32,11 @@ const CellStyled = styled.td`
 `;
 
 const Cell = observer((props) => {
-    const inventory = dataStore.stores.get(props.store).inventory.get(props.model);
+    const inventory = Math.min(dataStore.stores.get(props.store).inventory.get(props.model), 100);
+    // Use color coding to visualize inventory counts
     const color = inventory >= 0 ? `hsl(${(inventory / 100) * 156}deg 55% 51%)` : 'white';
     return <CellStyled color={color}>
+        {/* Cells for which we haven't received data (negative inventory count) are simply shown as '-' */}
         {inventory >= 0 ? inventory : '-'}
     </CellStyled>;
 });
@@ -46,6 +48,7 @@ const Dashboard = () => {
         <Grid>
             <tbody>
                 <tr>
+                    {/* Add table column headers (shoe models) */}
                     <th></th>
                     {SHOE_LIST.map((model) =>
                         <th key={model} title={model}>{model.slice(0, 3)}.</th>

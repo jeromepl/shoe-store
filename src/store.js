@@ -2,6 +2,14 @@ import { types } from 'mobx-state-tree';
 import { values } from 'mobx';
 
 
+/** This file handles all of the data storage and updating.
+*   The MobX-state-tree model is first defined (Inventory, Sale and Stores objects)
+*   and is then connected to the websocket to handle updates.
+*   Some derived properties are computed such as the total inventory count and the count of low inventory items.
+*   These derived properties are also automatically updated by MobX.
+*/
+
+
 const DATA_URL = 'ws://localhost:8080/';
 const STORE_LIST = ['ALDO Centre Eaton', 'ALDO Destiny USA Mall', 'ALDO Pheasant Lane Mall', 'ALDO Holyoke Mall', 'ALDO Maine Mall', 'ALDO Crossgates Mall', 'ALDO Burlington Mall', 'ALDO Solomon Pond Mall', 'ALDO Auburn Mall', 'ALDO Waterloo Premium Outlets'];
 const SHOE_LIST = ['ADERI', 'MIRIRA', 'CAELAN', 'BUTAUD', 'SCHOOLER', 'SODANO', 'MCTYRE', 'CADAUDIA', 'RASIEN', 'WUMA', 'GRELIDIEN', 'CADEVEN', 'SEVIDE', 'ELOILLAN', 'BEODA', 'VENDOGNUS', 'ABOEN', 'ALALIWEN', 'GREG', 'BOZZA'];
@@ -18,7 +26,11 @@ const Inventory = types
             return values(self.inventory).reduce((acc, count) => acc + (count > 0 ? count : 0));
         },
         get lowCountPercentage() {
+            // Count the ratio of items that have low stock to those that don't, but ignore items for which we have yet to receive date
             return values(self.inventory).filter(count => count >= 0 && count <= LOW_STOCK_THRESHOLD).length / SHOE_LIST.length;
+        },
+        get itemsWithDataCount() {
+            return values(self.inventory).filter(count => count >= 0).length;
         }
     }))
     .actions(self => ({
@@ -36,7 +48,7 @@ const Sale = types.model({
 const Stores = types
     .model({
         stores: types.map(Inventory),
-        recentSales: types.array(Sale)
+        recentSales: types.array(Sale) // This array has variable size, but should not exceed RECENT_SALES_CACHE in size (see addSale below)
     })
     .views(self => ({
         get totalInventory() {
@@ -46,13 +58,20 @@ const Stores = types
             return totalCount;
         },
         get lowCountPercentage() {
+            // Count the ratio of items that have low stock to those that don't, but ignore items for which we have yet to receive date
+            // This needs to be done by weighing each store by the number of items for which we have received data
             let totalCount = 0;
-            values(self.stores).forEach((store) => totalCount += store.lowCountPercentage);
-            return totalCount / STORE_LIST.length;
+            let totalNumberOfItemsWithData = 0;
+            values(self.stores).forEach((store) => {
+                totalCount += store.lowCountPercentage * store.itemsWithDataCount;
+                totalNumberOfItemsWithData += store.itemsWithDataCount;
+            });
+            return totalCount / totalNumberOfItemsWithData;
         }
     }))
     .actions(self => ({
         addSale(store, model, inventory) {
+            // Implement a queue using a simple javascript array by shifting (which pops an item) an array if we have reached the array's max size
             self.recentSales.push(Sale.create({ store, model, inventory }));
             if (self.recentSales.length > RECENT_SALES_CACHE_SIZE) {
                 self.recentSales.shift();
