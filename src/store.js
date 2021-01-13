@@ -82,5 +82,7 @@ ws.onmessage = function (event) {
 export default dataStore;
 export {
     STORE_LIST,
-    SHOE_LIST
+    SHOE_LIST,
+    RECENT_SALES_CACHE_SIZE,
+    LOW_STOCK_THRESHOLD
 }

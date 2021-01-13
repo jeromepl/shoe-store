@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-import dataStore from './store';
+import dataStore, { LOW_STOCK_THRESHOLD } from './store';
 
 
 const SectionContainer = styled.div`
@@ -41,7 +41,7 @@ const DashboardSummary = observer(() => {
                     })}
                 />
             </div>
-            <ExplanationText>of products are in <span title='> 5' style={{ borderBottom: 'dashed 1px grey', cursor: 'default' }}>sufficient</span> stock</ExplanationText>
+            <ExplanationText>of products are in <span title={`> ${LOW_STOCK_THRESHOLD}`} style={{ borderBottom: 'dashed 1px grey', cursor: 'default' }}>sufficient</span> stock</ExplanationText>
         </SectionContainer>
         <SectionContainer>
             <StockText style={{ height: '200px' }}>{dataStore.totalInventory}</StockText>
